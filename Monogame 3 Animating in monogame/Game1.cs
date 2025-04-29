@@ -42,7 +42,7 @@ namespace Monogame_3_Animating_in_monogame
 
             tribbleGreySpeed = new Vector2(2,-3);
 
-            tribbleCreamRect = new Rectangle(150,100,100,100);
+            tribbleCreamRect = new Rectangle(150,250,100,100);
             
             tribbleCreamSpeed = new Vector2(2,0);
 
