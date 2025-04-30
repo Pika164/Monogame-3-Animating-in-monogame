@@ -22,6 +22,9 @@ namespace Monogame_3_Animating_in_monogame
 
         Rectangle window;
 
+        MouseState prevMouseState;
+        MouseState mouseState;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -83,6 +86,27 @@ namespace Monogame_3_Animating_in_monogame
 
             // TODO: Add your update logic here
 
+            prevMouseState = mouseState;
+            mouseState = Mouse.GetState();
+
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                if (tribbleOrangeRect.Contains(mouseState.Position))
+                {
+                    tribbleOrangeSpeed.Y -= 2;
+                }
+                    
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                if (tribbleGreyRect.Contains(mouseState.Position))
+                {
+                    tribbleGreyRect.Width += 2;
+                    tribbleGreyRect.Height += 2;
+                    tribbleGreySpeed.Y -= 2;
+                }
+            }
+
             tribbleGreyRect.X += (int)tribbleGreySpeed.X;
             if (tribbleGreyRect.Right >= window.Width || tribbleGreyRect.Left <= 0)
             {
@@ -136,16 +160,29 @@ namespace Monogame_3_Animating_in_monogame
                 tribbleGreySpeed.X *= -1;
                 tribbleGreySpeed.Y *= -1;
             }
+
             if (tribbleBrownRect.Intersects(tribbleCreamRect))
             {
                 tribbleBrownSpeed.Y *= -1;
                 tribbleCreamSpeed.X *= -1;
             }
+
             if (tribbleBrownRect.Intersects(tribbleGreyRect))
             {
-                tribbleGreySpeed.Y *= -1;
+                tribbleGreySpeed.X *= -1;
                 tribbleBrownSpeed.Y *= -1;
             }
+
+            if (tribbleOrangeRect.Intersects(tribbleCreamRect))
+            {
+                tribbleCreamSpeed.X += 1;
+            }
+
+            if (tribbleOrangeRect.Intersects(tribbleBrownRect))
+            {
+                tribbleBrownSpeed.Y += 1;
+            }
+
             base.Update(gameTime);
         }
 
